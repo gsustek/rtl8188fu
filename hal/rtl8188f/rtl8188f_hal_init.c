@@ -88,7 +88,7 @@ _BlockWrite(
 	blockSize_p1 = 196; // the same as 8188e
 #endif
 
-	/*printk("====>%s %d\n", __func__, __LINE__); */
+	/*RTW_INFO("====>%s %d\n", __func__, __LINE__); */
 
 	/*3 Phase #1 */
 	blockCount_p1 = buffSize / blockSize_p1;
@@ -107,7 +107,7 @@ _BlockWrite(
 		ret = rtw_write32(padapter, (FW_8188F_START_ADDRESS + i * blockSize_p1), le32_to_cpu(*((u32 *)(bufferPtr + i * blockSize_p1))));
 #endif
 		if (ret == _FAIL) {
-			printk("====>%s %d i:%d\n", __func__, __LINE__, i);
+			RTW_INFO("====>%s %d i:%d\n", __func__, __LINE__, i);
 			goto exit;
 		}
 	}
@@ -168,7 +168,7 @@ _BlockWrite(
 			ret = rtw_write8(padapter, (FW_8188F_START_ADDRESS + offset + i), *(bufferPtr + offset + i));
 
 			if (ret == _FAIL) {
-				printk("====>%s %d i:%d\n", __func__, __LINE__, i);
+				RTW_INFO("====>%s %d i:%d\n", __func__, __LINE__, i);
 				goto exit;
 			}
 		}
@@ -242,7 +242,7 @@ _WriteFW(
 		ret = _PageWrite(padapter, page, bufferPtr + offset, MAX_DLFW_PAGE_SIZE);
 
 		if (ret == _FAIL) {
-			printk("====>%s %d\n", __func__, __LINE__);
+			RTW_INFO("====>%s %d\n", __func__, __LINE__);
 			goto exit;
 		}
 	}
@@ -252,7 +252,7 @@ _WriteFW(
 		ret = _PageWrite(padapter, page, bufferPtr + offset, remainSize);
 
 		if (ret == _FAIL) {
-			printk("====>%s %d\n", __func__, __LINE__);
+			RTW_INFO("====>%s %d\n", __func__, __LINE__);
 			goto exit;
 		}
 	}
@@ -1626,7 +1626,7 @@ hal_ReadEFuse_WiFi(
 			efuse_OneByteRead(padapter, i, &efuseTbl[i], _FALSE);
 		DBG_871X("Efuse Content:\n");
 		for (i = 0; i < 256; i++)
-			printk("%02X%s", efuseTbl[i], (((i + 1) % 16) == 0)?"\n":" ");
+			RTW_INFO("%02X%s", efuseTbl[i], (((i + 1) % 16) == 0)?"\n":" ");
 	}
 #endif
 
@@ -1700,7 +1700,7 @@ hal_ReadEFuse_WiFi(
 	if (1) {
 		DBG_871X("Efuse Realmap:\n");
 		for (i = 0; i < _size_byte; i++)
-			printk("%02X%s", pbuf[i], (((i + 1) % 16) == 0)?"\n":" ");
+			RTW_INFO("%02X%s", pbuf[i], (((i + 1) % 16) == 0)?"\n":" ");
 	}
 #endif
 #endif
@@ -5687,11 +5687,11 @@ void Debug_FwC2H_8188f(PADAPTER padapter, u8 *pdata, u8 len)
 	nextdata = pdata;
 #if 0
 	for (i = 0; i < len; i++) {
-		printk("%02x ", pdata[i]);
+		RTW_INFO("%02x ", pdata[i]);
 		if ((i + 1) % 8 == 0)
-			printk("\n");
+			RTW_INFO("\n");
 	}
-	printk("\n");
+	RTW_INFO("\n");
 #endif
 	do {
 		data_len = *(nextdata + 1);

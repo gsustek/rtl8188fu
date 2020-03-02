@@ -671,7 +671,7 @@ odm_DigAbort(
 	#ifdef CONFIG_SPECIAL_SETTING_FOR_FUNAI_TV	
 	if((pDM_Odm->bLinked) && (pDM_Odm->Adapter->registrypriv.force_igi !=0))
 	{	
-		printk("pDM_Odm->RSSI_Min=%d \n",pDM_Odm->RSSI_Min);
+		RTW_INFO("pDM_Odm->RSSI_Min=%d \n",pDM_Odm->RSSI_Min);
 		ODM_Write_DIG(pDM_Odm,pDM_Odm->Adapter->registrypriv.force_igi);
 		return	TRUE;
 	}

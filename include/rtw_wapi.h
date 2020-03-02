@@ -19,37 +19,37 @@ extern u32 wapi_debug_component;
 static inline void dump_buf(u8 *buf, u32 len)
 {
 	u32 i;
-	printk("-----------------Len %d----------------\n", len);
+	RTW_INFO("-----------------Len %d----------------\n", len);
 	for(i=0; i<len; i++)
-		printk("%2.2x-", *(buf+i));
-	printk("\n");
+		RTW_INFO("%2.2x-", *(buf+i));
+	RTW_INFO("\n");
 }
 
 #define WAPI_TRACE(component, x, args...) \
 do { if(wapi_debug_component & (component)) \
-	printk(KERN_DEBUG "WAPI" ":" x "" , \
+	RTW_INFO(KERN_DEBUG "WAPI" ":" x "" , \
 	       ##args);\
 }while(0);
 
 #define WAPI_DATA(component, x, buf, len) \
 do { if(wapi_debug_component & (component)){ \
-	printk("%s:\n", x);\
+	RTW_INFO("%s:\n", x);\
 	dump_buf((buf), (len));}\
 }while(0);
 
 #define RT_ASSERT_RET(_Exp)								\
 		if(!(_Exp))									\
 		{											\
-			printk("RTWLAN: ");					\
-                	printk( "Assertion failed! %s,%s,line=%d\n", \
+			RTW_INFO("RTWLAN: ");					\
+                	RTW_INFO( "Assertion failed! %s,%s,line=%d\n", \
                 	#_Exp,__FUNCTION__,__LINE__);          \
 			return;						\
 		}
 #define RT_ASSERT_RET_VALUE(_Exp,Ret)								\
 		if(!(_Exp))									\
 		{											\
-			printk("RTWLAN: ");					\
-                	printk( "Assertion failed! %s,%s,line=%d\n", \
+			RTW_INFO("RTWLAN: ");					\
+                	RTW_INFO( "Assertion failed! %s,%s,line=%d\n", \
                 	#_Exp,__FUNCTION__,__LINE__);          \
 			return (Ret);						\
 		}

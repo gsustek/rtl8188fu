@@ -1521,11 +1521,11 @@ int rockchip_wifi_init_module(void)
     int type = get_wifi_chip_type();
     if (type < WIFI_AP6XXX_SERIES || type == WIFI_ESP8089) return 0;
 #endif
-    printk("\n");
-    printk("=======================================================\n");
-    printk("==== Launching Wi-Fi driver! (Powered by Rockchip) ====\n");
-    printk("=======================================================\n");
-    printk("Realtek 8188FU USB WiFi driver (Powered by Rockchip) init.\n");
+    RTW_INFO("\n");
+    RTW_INFO("=======================================================\n");
+    RTW_INFO("==== Launching Wi-Fi driver! (Powered by Rockchip) ====\n");
+    RTW_INFO("=======================================================\n");
+    RTW_INFO("Realtek 8188FU USB WiFi driver (Powered by Rockchip) init.\n");
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 1, 0))
 #if 0
     rockchip_wifi_power(1);
@@ -1548,11 +1548,11 @@ void rockchip_wifi_exit_module(void)
     int type = get_wifi_chip_type();
     if (type < WIFI_AP6XXX_SERIES || type == WIFI_ESP8089) return;
 #endif
-    printk("\n");
-    printk("=======================================================\n");
-    printk("==== Dislaunching Wi-Fi driver! (Powered by Rockchip) ====\n");
-    printk("=======================================================\n");
-    printk("Realtek 8188FU USB WiFi driver (Powered by Rockchip) init.\n");
+    RTW_INFO("\n");
+    RTW_INFO("=======================================================\n");
+    RTW_INFO("==== Dislaunching Wi-Fi driver! (Powered by Rockchip) ====\n");
+    RTW_INFO("=======================================================\n");
+    RTW_INFO("Realtek 8188FU USB WiFi driver (Powered by Rockchip) init.\n");
     rtw_drv_halt();
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 1, 0))
     //rockchip_wifi_set_carddetect(0);

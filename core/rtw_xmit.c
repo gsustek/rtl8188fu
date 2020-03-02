@@ -2319,10 +2319,10 @@ _func_enter_;
 		/*//dump total packet include MME with zero MIC
 		{
 			int i;
-			printk("Total packet: ");
+			RTW_INFO("Total packet: ");
 			for(i=0; i < BIP_AAD_SIZE+frame_body_len; i++)
-				printk(" %02x ", BIP_AAD[i]);
-			printk("\n");
+				RTW_INFO(" %02x ", BIP_AAD[i]);
+			RTW_INFO("\n");
 		}*/
 		//calculate mic
 		if(omac1_aes_128(padapter->securitypriv.dot11wBIPKey[padapter->securitypriv.dot11wBIPKeyid].skey
@@ -2332,20 +2332,20 @@ _func_enter_;
 		/*//dump calculated mic result
 		{
 			int i;
-			printk("Calculated mic result: ");
+			RTW_INFO("Calculated mic result: ");
 			for(i=0; i<16; i++)
-				printk(" %02x ", mic[i]);
-			printk("\n");
+				RTW_INFO(" %02x ", mic[i]);
+			RTW_INFO("\n");
 		}*/
 		//copy right BIP mic value, total is 128bits, we use the 0~63 bits
 		_rtw_memcpy(pframe-8, mic, 8);
 		/*/dump all packet after mic ok
 		{
 			int pp;
-			printk("pattrib->pktlen = %d \n", pattrib->pktlen);
+			RTW_INFO("pattrib->pktlen = %d \n", pattrib->pktlen);
 			for(pp=0;pp< pattrib->pktlen; pp++)
-				printk(" %02x ", mem_start[pp]);
-			printk("\n");
+				RTW_INFO(" %02x ", mem_start[pp]);
+			RTW_INFO("\n");
 		}*/
 	}
 	else //unicast mgmt frame TX
@@ -2385,10 +2385,10 @@ _func_enter_;
 			//before encrypt dump the management packet content
 			/*{
 				int i;
-				printk("Management pkt: ");
+				RTW_INFO("Management pkt: ");
 				for(i=0; i<pattrib->pktlen; i++)
-				printk(" %02x ", pframe[i]);
-				printk("=======\n");
+				RTW_INFO(" %02x ", pframe[i]);
+				RTW_INFO("=======\n");
 			}*/
 			if(pattrib->encrypt>0)
 				_rtw_memcpy(pattrib->dot118021x_UncstKey.skey, psta->dot118021x_UncstKey.skey, 16);
@@ -2430,10 +2430,10 @@ _func_enter_;
 			/*//dump management packet include AES IV header
 			{
 				int i;
-				printk("Management pkt + IV: ");
+				RTW_INFO("Management pkt + IV: ");
 				//for(i=0; i<pattrib->pktlen; i++)
-				//printk(" %02x ", mem_start[i]);
-				printk("@@@@@@@@@@@@@\n");
+				//RTW_INFO(" %02x ", mem_start[i]);
+				RTW_INFO("@@@@@@@@@@@@@\n");
 			}*/
 			
 			if ((pattrib->icv_len >0 )&& (pattrib->bswenc)) {
@@ -2450,10 +2450,10 @@ _func_enter_;
 			/*//dump management packet include AES header
 			{
 				int i;
-				printk("prepare to enc Management pkt + IV: ");
+				RTW_INFO("prepare to enc Management pkt + IV: ");
 				for(i=0; i<pattrib->pktlen; i++)
-				printk(" %02x ", mem_start[i]);
-				printk("@@@@@@@@@@@@@\n");
+				RTW_INFO(" %02x ", mem_start[i]);
+				RTW_INFO("@@@@@@@@@@@@@\n");
 			}*/
 			//software encrypt
 			xmitframe_swencrypt(padapter, pxmitframe);

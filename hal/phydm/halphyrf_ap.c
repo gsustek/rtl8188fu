@@ -434,7 +434,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
 
 	if (delta_IQK > c.Threshold_IQK) 
 	{
-		panic_printk("%s(%d)\n", __FUNCTION__, __LINE__);
+		RTW_INFO("%s(%d)\n", __FUNCTION__, __LINE__);
 		ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("delta_IQK(%d) >= Threshold_IQK(%d)\n", delta_IQK, c.Threshold_IQK));
 		pDM_Odm->RFCalibrateInfo.ThermalValue_IQK = ThermalValue;
 		if(c.DoIQK)
@@ -671,7 +671,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 
 		if (ThermalValue_AVG_count) {
 			ThermalValue = (unsigned char)(ThermalValue_AVG / ThermalValue_AVG_count);
-			//printk("AVG Thermal Meter = 0x%x \n", ThermalValue);
+			//RTW_INFO("AVG Thermal Meter = 0x%x \n", ThermalValue);
 		}
 	}
 	

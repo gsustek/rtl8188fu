@@ -2787,7 +2787,7 @@ void SetHalODMVar(
 		case HAL_ODM_INITIAL_GAIN:
 			{
 				u8 rx_gain = *((u8 *)(pValue1));
-				/*printk("rx_gain:%x\n",rx_gain);*/
+				/*RTW_INFO("rx_gain:%x\n",rx_gain);*/
 				if (rx_gain == 0xff) {/*restore rx gain*/
 					/*ODM_Write_DIG(podmpriv,pDigTable->BackupIGValue);*/
 					odm_PauseDIG(podmpriv, PHYDM_RESUME, PHYDM_PAUSE_LEVEL_0, rx_gain);
@@ -3939,9 +3939,9 @@ void dump_TX_FIFO(_adapter* padapter, u8 page_num, u16 page_size){
 	addr = ((base) * page_size)/8;
 	for (i = 0 ; i < page_num * count ; i+=2) {
 		rtw_write32(padapter, 0x140, addr + i);
-		printk(" %08x %08x ", rtw_read32(padapter, 0x144), rtw_read32(padapter, 0x148));
+		RTW_INFO(" %08x %08x ", rtw_read32(padapter, 0x144), rtw_read32(padapter, 0x148));
 		rtw_write32(padapter, 0x140, addr + i + 1);
-		printk(" %08x %08x \n", rtw_read32(padapter, 0x144), rtw_read32(padapter, 0x148));
+		RTW_INFO(" %08x %08x \n", rtw_read32(padapter, 0x144), rtw_read32(padapter, 0x148));
 	}
 }
 

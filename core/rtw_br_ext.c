@@ -562,7 +562,7 @@ static void __nat25_db_print(_adapter *priv)
 		while (db != NULL)
 		{
 #ifdef CL_IPV6_PASS
-			panic_printk("NAT25: DB(%d) H(%02d) C(%d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"
+			RTW_INFO("NAT25: DB(%d) H(%02d) C(%d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"
 					"%02x%02x%02x%02x%02x%02x\n",
 				j,
 				i,
@@ -591,7 +591,7 @@ static void __nat25_db_print(_adapter *priv)
 				db->networkAddr[15],
 				db->networkAddr[16]);
 #else
-			panic_printk("NAT25: DB(%d) H(%02d) C(%d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
+			RTW_INFO("NAT25: DB(%d) H(%02d) C(%d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
 				j,
 				i,
 				atomic_read(&db->use_count),
@@ -685,7 +685,7 @@ void nat25_db_expire(_adapter *priv)
 					{
 #ifdef BR_EXT_DEBUG
 #ifdef CL_IPV6_PASS
-						panic_printk("NAT25 Expire H(%02d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"
+						RTW_INFO("NAT25 Expire H(%02d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x"
 								"%02x%02x%02x%02x%02x%02x\n",
 							i,
 							f->macAddr[0],
@@ -713,7 +713,7 @@ void nat25_db_expire(_adapter *priv)
 							f->networkAddr[16]);
 #else
 
-						panic_printk("NAT25 Expire H(%02d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
+						RTW_INFO("NAT25 Expire H(%02d) M:%02x%02x%02x%02x%02x%02x N:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
 							i,
 							f->macAddr[0],
 							f->macAddr[1],
@@ -852,7 +852,7 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 								DBG_871X("NAT25: Replace DA with BR's MAC\n");
 								if ( (*(u32 *)priv->br_mac) == 0 && (*(u16 *)(priv->br_mac+4)) == 0 ) {
 									void netdev_br_init(struct net_device *netdev);
-									printk("Re-init netdev_br_init() due to br_mac==0!\n");
+									RTW_INFO("Re-init netdev_br_init() due to br_mac==0!\n");
 									netdev_br_init(priv->pnetdev);
 								}
 								memcpy(skb->data, priv->br_mac, ETH_ALEN);
@@ -1488,7 +1488,7 @@ int nat25_handle_frame(_adapter *priv, struct sk_buff *skb)
 #ifdef BR_EXT_DEBUG
 	if((!priv->ethBrExtInfo.nat25_disable) && (!(skb->data[0] & 1)))
 	{
-		panic_printk("NAT25: Input Frame: DA=%02x%02x%02x%02x%02x%02x SA=%02x%02x%02x%02x%02x%02x\n",
+		RTW_INFO("NAT25: Input Frame: DA=%02x%02x%02x%02x%02x%02x SA=%02x%02x%02x%02x%02x%02x\n",
 			skb->data[0],
 			skb->data[1],
 			skb->data[2],

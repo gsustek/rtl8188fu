@@ -131,12 +131,12 @@ s2Byte odm_InbandNoise_Monitor_NSeries(PDM_ODM_T	pDM_Odm,u8 bPauseDIG,u8 IGIValu
 			
 		}
 
-		//printk("####### valid_done:%d #############\n",valid_done);
+		//RTW_INFO("####### valid_done:%d #############\n",valid_done);
 		if ((valid_done==max_rf_path) || (ODM_GetProgressingTime(pDM_Odm,start) > max_time))
 		{
 			for(rf_path = ODM_RF_PATH_A; rf_path < max_rf_path; rf_path++)
 			{ 
-				//printk("%s PATH_%d - sum = %d, valid_cnt = %d \n",__FUNCTION__,rf_path,noise_data.sum[rf_path], noise_data.valid_cnt[rf_path]);
+				//RTW_INFO("%s PATH_%d - sum = %d, valid_cnt = %d \n",__FUNCTION__,rf_path,noise_data.sum[rf_path], noise_data.valid_cnt[rf_path]);
 				if(noise_data.valid_cnt[rf_path])
 					noise_data.sum[rf_path] /= noise_data.valid_cnt[rf_path];		
 				else

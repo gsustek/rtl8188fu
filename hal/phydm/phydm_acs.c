@@ -520,15 +520,15 @@ int phydm_AutoChannelSelectAP(
 			ch_begin = idx_5G_begin;
 
 #ifdef ACS_DEBUG_INFO//for debug
-		printk("\n");
+		RTW_INFO("\n");
 		for (y=ch_begin; y<ch_end; y++)
-			printk("1. init: chnl[%d] 20M_rx[%d] 40M_rx[%d] fa_cnt[%d] score[%d]\n",
+			RTW_INFO("1. init: chnl[%d] 20M_rx[%d] 40M_rx[%d] fa_cnt[%d] score[%d]\n",
 				priv->available_chnl[y], 
 				priv->chnl_ss_mac_rx_count[y], 
 				priv->chnl_ss_mac_rx_count_40M[y],
 				priv->chnl_ss_fa_count[y],
 				score[y]);
-		printk("\n");
+		RTW_INFO("\n");
 #endif
 
 #if defined(CONFIG_RTL_88E_SUPPORT) || defined(CONFIG_WLAN_HAL_8192EE)
@@ -539,12 +539,12 @@ int phydm_AutoChannelSelectAP(
 			if (find_clean_channel(priv, ch_begin, ch_end, tmp_score)) {
 				//memcpy(score, tmp_score, sizeof(score));
 #ifdef _DEBUG_RTL8192CD_
-				printk("!! Found clean channel, select minimum FA channel\n");
+				RTW_INFO("!! Found clean channel, select minimum FA channel\n");
 #endif
 				goto USE_CLN_CH;
 			}
 #ifdef _DEBUG_RTL8192CD_
-			printk("!! Not found clean channel, use NHM algorithm\n");
+			RTW_INFO("!! Not found clean channel, use NHM algorithm\n");
 #endif
 			use_nhm = 1;
 USE_CLN_CH:
@@ -557,7 +557,7 @@ USE_CLN_CH:
 				}
 
 #ifdef _DEBUG_RTL8192CD_				
-				printk("nhm_cnt_%d: H<-[ %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d]->L, score: %d\n", 
+				RTW_INFO("nhm_cnt_%d: H<-[ %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d]->L, score: %d\n", 
 					y+1, priv->nhm_cnt[y][9], priv->nhm_cnt[y][8], priv->nhm_cnt[y][7], 
 					priv->nhm_cnt[y][6], priv->nhm_cnt[y][5], priv->nhm_cnt[y][4],
 					priv->nhm_cnt[y][3], priv->nhm_cnt[y][2], priv->nhm_cnt[y][1],
@@ -612,10 +612,10 @@ USE_CLN_CH:
 		}
 
 #ifdef ACS_DEBUG_INFO//for debug
-		printk("\n");
+		RTW_INFO("\n");
 		for (y=ch_begin; y<ch_end; y++)
-			printk("2. after 20M check: chnl[%d] score[%d]\n",priv->available_chnl[y], score[y]);
-		printk("\n");
+			RTW_INFO("2. after 20M check: chnl[%d] score[%d]\n",priv->available_chnl[y], score[y]);
+		RTW_INFO("\n");
 #endif	
 
 		for (y=ch_begin; y<ch_end; y++) {
@@ -659,12 +659,12 @@ USE_CLN_CH:
 		}
 
 #ifdef ACS_DEBUG_INFO//for debug
-		printk("\n");
+		RTW_INFO("\n");
 		for (y=ch_begin; y<ch_end; y++)
-			printk("3. after 40M check: chnl[%d] score[%d]\n",priv->available_chnl[y], score[y]);
-		printk("\n");
-		printk("4. do_ap_check=%d traffic_check=%d\n", do_ap_check, traffic_check);
-		printk("\n");
+			RTW_INFO("3. after 40M check: chnl[%d] score[%d]\n",priv->available_chnl[y], score[y]);
+		RTW_INFO("\n");
+		RTW_INFO("4. do_ap_check=%d traffic_check=%d\n", do_ap_check, traffic_check);
+		RTW_INFO("\n");
 #endif
 
 		if( traffic_check == 0)
@@ -677,10 +677,10 @@ USE_CLN_CH:
 		}
 
 #ifdef ACS_DEBUG_INFO//for debug
-		printk("\n");
+		RTW_INFO("\n");
 		for (y=ch_begin; y<ch_end; y++)
-			printk("5. after fa check: chnl[%d] score[%d]\n",priv->available_chnl[y], score[y]);
-		printk("\n");
+			RTW_INFO("5. after fa check: chnl[%d] score[%d]\n",priv->available_chnl[y], score[y]);
+		RTW_INFO("\n");
 #endif			
 
 		if (do_ap_check) {
@@ -690,10 +690,10 @@ USE_CLN_CH:
 					if (pBss->channel == priv->available_chnl[y]) {
 						if (pBss->channel <= 14) {
 #ifdef ACS_DEBUG_INFO//for debug
-						printk("\n");
-						printk("chnl[%d] has ap rssi=%d bw[0x%02x]\n",
+						RTW_INFO("\n");
+						RTW_INFO("chnl[%d] has ap rssi=%d bw[0x%02x]\n",
 							pBss->channel, pBss->rssi, pBss->t_stamp[1]);
-						printk("\n");
+						RTW_INFO("\n");
 #endif
 							if (pBss->rssi > 60)
 								ap_ratio = 4;
@@ -790,10 +790,10 @@ USE_CLN_CH:
 		}
 
 #ifdef ACS_DEBUG_INFO//for debug
-		printk("\n");
+		RTW_INFO("\n");
 		for (y=ch_begin; y<ch_end; y++)
-			printk("6. after ap check: chnl[%d]:%d\n", priv->available_chnl[y],score[y]);
-		printk("\n");
+			RTW_INFO("6. after ap check: chnl[%d]:%d\n", priv->available_chnl[y],score[y]);
+		RTW_INFO("\n");
 #endif		
 
 #ifdef 	SS_CH_LOAD_PROC
@@ -940,7 +940,7 @@ choose_ch:
 		len += sprintf(tmpbuf+len, "ch%d:%u ", priv->available_chnl[i], score[i]);		
 	}
 	strcat(tmpbuf, "\n");
-	panic_printk("%s", tmpbuf);
+	RTW_INFO("%s", tmpbuf);
 
 #endif
 
@@ -1132,7 +1132,7 @@ choose_ch:
 		{
 			if(!is80MChannel(priv->available_chnl,priv->available_chnl_num,minChan))
 			{
-				//printk("BW=80M, selected channel = %d is unavaliable! reduce to 40M\n", minChan);
+				//RTW_INFO("BW=80M, selected channel = %d is unavaliable! reduce to 40M\n", minChan);
 				//priv->pmib->dot11nConfigEntry.dot11nUse40M = HT_CHANNEL_WIDTH_20_40;
 				priv->pshare->is_40m_bw = HT_CHANNEL_WIDTH_20_40;
 			}
@@ -1142,7 +1142,7 @@ choose_ch:
 		{
 			if(!is40MChannel(priv->available_chnl,priv->available_chnl_num,minChan))
 			{
-				//printk("BW=40M, selected channel = %d is unavaliable! reduce to 20M\n", minChan);
+				//RTW_INFO("BW=40M, selected channel = %d is unavaliable! reduce to 20M\n", minChan);
 				//priv->pmib->dot11nConfigEntry.dot11nUse40M = HT_CHANNEL_WIDTH_20;
 				priv->pshare->is_40m_bw = HT_CHANNEL_WIDTH_20;
 			}
@@ -1206,14 +1206,14 @@ choose_ch:
 //-----------------------
 
 #if defined(__ECOS) && defined(CONFIG_SDIO_HCI)
-	panic_printk("Auto channel choose ch:%d\n", minChan);
+	RTW_INFO("Auto channel choose ch:%d\n", minChan);
 #else
 #ifdef _DEBUG_RTL8192CD_
-	panic_printk("Auto channel choose ch:%d\n", minChan);
+	RTW_INFO("Auto channel choose ch:%d\n", minChan);
 #endif
 #endif
 #ifdef ACS_DEBUG_INFO//for debug
-	printk("7. minChan:%d 2nd_offset:%d\n", minChan, priv->pshare->offset_2nd_chan);
+	RTW_INFO("7. minChan:%d 2nd_offset:%d\n", minChan, priv->pshare->offset_2nd_chan);
 #endif
 
 	return minChan;

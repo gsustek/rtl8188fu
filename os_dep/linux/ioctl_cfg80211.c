@@ -1105,7 +1105,7 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
 				_rtw_memcpy(padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16:param->u.crypt.key_len));
 				/* DBG_871X("IGTK key below:\n");
 				for(no=0;no<16;no++)
-					printk(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
+					RTW_INFO(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
 				DBG_871X("\n"); */
 				padapter->securitypriv.dot11wBIPKeyid = param->u.crypt.idx;
 				padapter->securitypriv.binstallBIPkey = _TRUE;
@@ -1420,7 +1420,7 @@ _func_enter_;
 						_rtw_memcpy(padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey,  param->u.crypt.key,(param->u.crypt.key_len>16 ?16:param->u.crypt.key_len));
 						/*DBG_871X("IGTK key below:\n");
 						for(no=0;no<16;no++)
-							printk(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
+							RTW_INFO(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
 						DBG_871X("\n");*/
 						padapter->securitypriv.dot11wBIPKeyid = param->u.crypt.idx;
 						padapter->securitypriv.binstallBIPkey = _TRUE;
@@ -1812,18 +1812,18 @@ static int cfg80211_rtw_set_rekey_data(struct wiphy *wiphy,
 	}
 
 	_rtw_memcpy(psta->kek, data->kek, NL80211_KEK_LEN);
-	/*printk("\ncfg80211_rtw_set_rekey_data KEK:");
+	/*RTW_INFO("\ncfg80211_rtw_set_rekey_data KEK:");
 	for(i=0;i<NL80211_KEK_LEN; i++)
-		printk(" %02x ", psta->kek[i]);*/
+		RTW_INFO(" %02x ", psta->kek[i]);*/
 	_rtw_memcpy(psta->kck, data->kck, NL80211_KCK_LEN);
-	/*printk("\ncfg80211_rtw_set_rekey_data KCK:");
+	/*RTW_INFO("\ncfg80211_rtw_set_rekey_data KCK:");
 	for(i=0;i<NL80211_KCK_LEN; i++)
-		printk(" %02x ", psta->kck[i]);*/
+		RTW_INFO(" %02x ", psta->kck[i]);*/
 	_rtw_memcpy(psta->replay_ctr, data->replay_ctr, NL80211_REPLAY_CTR_LEN);
 	psecuritypriv->binstallKCK_KEK = _TRUE;
-	/*printk("\nREPLAY_CTR: ");
+	/*RTW_INFO("\nREPLAY_CTR: ");
 	for(i=0;i<RTW_REPLAY_CTR_LEN; i++)
-		printk(" %02x ", psta->replay_ctr[i]);*/
+		RTW_INFO(" %02x ", psta->replay_ctr[i]);*/
 
 	return 0;
 }
@@ -3222,7 +3222,7 @@ static int cfg80211_rtw_connect(struct wiphy *wiphy, struct net_device *ndev,
 	}
 
 #ifdef CONFIG_PLATFORM_MSTAR_SCAN_BEFORE_CONNECT
-	printk("MStar Android!\n");
+	RTW_INFO("MStar Android!\n");
 	if(adapter_wdev_data(padapter)->bandroid_scan == _FALSE)
 	{
 #ifdef CONFIG_P2P
@@ -3231,7 +3231,7 @@ static int cfg80211_rtw_connect(struct wiphy *wiphy, struct net_device *ndev,
 #endif //CONFIG_P2P
 		{
 			ret = -EBUSY;
-			printk("Android hasn't attached yet!\n");
+			RTW_INFO("Android hasn't attached yet!\n");
 			goto exit;
 		}	
 	}
@@ -5811,7 +5811,7 @@ static int cfg80211_rtw_tdls_mgmt(struct wiphy *wiphy,
 	if (txmgmt.len > 0) {
 		int i=0;
 		for(;i < len; i++)
-			printk("%02x ", *(txmgmt.buf+i));
+			RTW_INFO("%02x ", *(txmgmt.buf+i));
 			DBG_871X("len:%d\n", (u32)txmgmt.len);
 	}
 #endif
@@ -6140,7 +6140,7 @@ static int rtw_cfg80211_set_probe_resp_wpsp2pie(struct net_device *net, char *bu
 				struct wireless_dev *wdev = padapter->rtw_wdev;
 				
 				#ifdef CONFIG_DEBUG_CFG80211		
-				//printk("config_method in wpsie of probe_resp = 0x%x\n", be16_to_cpu(*puconfig_method));
+				//RTW_INFO("config_method in wpsie of probe_resp = 0x%x\n", be16_to_cpu(*puconfig_method));
 				#endif
 
 				#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37)) || defined(COMPAT_KERNEL_RELEASE)

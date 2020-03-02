@@ -953,8 +953,8 @@ efuse_IsMasked(
 
 #define RT_ASSERT_RET(expr)												\
 	if (!(expr)) {															\
-		printk("Assertion failed! %s at ......\n", #expr);							\
-		printk("      ......%s,%s, line=%d\n",__FILE__, __FUNCTION__, __LINE__);	\
+		RTW_INFO("Assertion failed! %s at ......\n", #expr);							\
+		RTW_INFO("      ......%s,%s, line=%d\n",__FILE__, __FUNCTION__, __LINE__);	\
 		return _FAIL;	\
 	}
 

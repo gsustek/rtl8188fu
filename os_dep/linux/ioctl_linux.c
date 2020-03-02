@@ -642,12 +642,12 @@ static inline char * iwe_stream_wpa_wpa2_process(_adapter *padapter,
 				}
 
 				if (wpa_len > 100) {
-					printk("-----------------Len %d----------------\n", wpa_len);
+					RTW_INFO("-----------------Len %d----------------\n", wpa_len);
 					for (i = 0; i < wpa_len; i++) {
-						printk("%02x ", wpa_ie[i]);
+						RTW_INFO("%02x ", wpa_ie[i]);
 					}
-					printk("\n");
-					printk("-----------------Len %d----------------\n", wpa_len);
+					RTW_INFO("\n");
+					RTW_INFO("-----------------Len %d----------------\n", wpa_len);
 				}
 		
 				_rtw_memset(iwe, 0, sizeof(*iwe));
@@ -1109,12 +1109,12 @@ static char *translate_scan(_adapter *padapter,
 			}
 
 			if (wpa_len > 100) {
-				printk("-----------------Len %d----------------\n", wpa_len);
+				RTW_INFO("-----------------Len %d----------------\n", wpa_len);
 				for (i = 0; i < wpa_len; i++) {
-					printk("%02x ", wpa_ie[i]);
+					RTW_INFO("%02x ", wpa_ie[i]);
 				}
-				printk("\n");
-				printk("-----------------Len %d----------------\n", wpa_len);
+				RTW_INFO("\n");
+				RTW_INFO("-----------------Len %d----------------\n", wpa_len);
 			}
 	
 			_rtw_memset(&iwe, 0, sizeof(iwe));
@@ -1516,13 +1516,13 @@ _func_enter_;
 					else if(strcmp(param->u.crypt.alg, "BIP") == 0)
 					{
 						int no;
-						//printk("BIP key_len=%d , index=%d @@@@@@@@@@@@@@@@@@\n", param->u.crypt.key_len, param->u.crypt.idx);
+						//RTW_INFO("BIP key_len=%d , index=%d @@@@@@@@@@@@@@@@@@\n", param->u.crypt.key_len, param->u.crypt.idx);
 						//save the IGTK key, length 16 bytes
 						_rtw_memcpy(padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey,  param->u.crypt.key,(param->u.crypt.key_len>16 ?16:param->u.crypt.key_len));
-						/*printk("IGTK key below:\n");
+						/*RTW_INFO("IGTK key below:\n");
 						for(no=0;no<16;no++)
-							printk(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
-						printk("\n");*/
+							RTW_INFO(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
+						RTW_INFO("\n");*/
 						padapter->securitypriv.dot11wBIPKeyid = param->u.crypt.idx;
 						padapter->securitypriv.binstallBIPkey = _TRUE;
 						DBG_871X(" ~~~~set sta key:IGKT\n");
@@ -6158,7 +6158,7 @@ static int rtw_p2p_set_persistent(struct net_device *dev,
 			pwdinfo->persistent_supported = _FALSE;
 		}
 	}
-	printk( "[%s] persistent_supported = %d\n", __FUNCTION__, pwdinfo->persistent_supported );
+	RTW_INFO( "[%s] persistent_supported = %d\n", __FUNCTION__, pwdinfo->persistent_supported );
 	
 exit:
 	
@@ -6305,11 +6305,11 @@ static int rtw_p2p_set_pc(struct net_device *dev,
 		if (p2pie) {
 			//	The P2P Device ID attribute is included in the Beacon frame.
 			//	The P2P Device Info attribute is included in the probe response frame.
-			printk( "[%s] Got P2P IE\n", __FUNCTION__ );
+			RTW_INFO( "[%s] Got P2P IE\n", __FUNCTION__ );
 			if ( rtw_get_p2p_attr_content( p2pie, p2pielen, P2P_ATTR_DEVICE_ID, attr_content, &attr_contentlen) )
 			{
 				//	Handle the P2P Device ID attribute of Beacon first
-				printk( "[%s] P2P_ATTR_DEVICE_ID \n", __FUNCTION__ );
+				RTW_INFO( "[%s] P2P_ATTR_DEVICE_ID \n", __FUNCTION__ );
 				if ( _rtw_memcmp( attr_content, peerMAC, ETH_ALEN ) )
 				{
 					uintPeerChannel = pnetwork->network.Configuration.DSConfig;
@@ -6319,7 +6319,7 @@ static int rtw_p2p_set_pc(struct net_device *dev,
 			else if ( rtw_get_p2p_attr_content( p2pie, p2pielen, P2P_ATTR_DEVICE_INFO, attr_content, &attr_contentlen) )
 			{
 				//	Handle the P2P Device Info attribute of probe response
-				printk( "[%s] P2P_ATTR_DEVICE_INFO \n", __FUNCTION__ );
+				RTW_INFO( "[%s] P2P_ATTR_DEVICE_INFO \n", __FUNCTION__ );
 				if ( _rtw_memcmp( attr_content, peerMAC, ETH_ALEN ) )
 				{
 					uintPeerChannel = pnetwork->network.Configuration.DSConfig;
@@ -6334,7 +6334,7 @@ static int rtw_p2p_set_pc(struct net_device *dev,
 	}
 
 	_exit_critical_bh(&(pmlmepriv->scanned_queue.lock), &irqL);
-	printk( "[%s] channel = %d\n", __FUNCTION__, uintPeerChannel );
+	RTW_INFO( "[%s] channel = %d\n", __FUNCTION__, uintPeerChannel );
 
 	if ( uintPeerChannel )
 	{
@@ -6491,7 +6491,7 @@ static int rtw_p2p_set_sa(struct net_device *dev,
 			pwdinfo->session_available = _FALSE;
 		}
 	}
-	printk( "[%s] session available = %d\n", __FUNCTION__, pwdinfo->session_available );
+	RTW_INFO( "[%s] session available = %d\n", __FUNCTION__, pwdinfo->session_available );
 	
 exit:
 	
@@ -7739,7 +7739,7 @@ static int rtw_dbg_port(struct net_device *dev,
 				case 0x17:
 					{
 						struct mlme_ext_priv	*pmlmeext = &(padapter->mlmeextpriv);						
-						printk("===>  Fixed channel to %d \n",extra_arg);
+						RTW_INFO("===>  Fixed channel to %d \n",extra_arg);
 						pmlmeext->fixed_chan = extra_arg;	
 						
 					}
@@ -7747,7 +7747,7 @@ static int rtw_dbg_port(struct net_device *dev,
 #endif
 				case 0x18:
 					{
-						printk("===>  Switch USB Mode %d \n",extra_arg);
+						RTW_INFO("===>  Switch USB Mode %d \n",extra_arg);
 						rtw_hal_set_hwreg(padapter, HW_VAR_USB_MODE, (u8 *)&extra_arg);
 					}
 					break;
@@ -8411,7 +8411,7 @@ static int rtw_set_encryption(struct net_device *dev, struct ieee_param *param, 
 				_rtw_memcpy(padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16:param->u.crypt.key_len));
 				/* DBG_871X("IGTK key below:\n");
 				for(no=0;no<16;no++)
-					printk(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
+					RTW_INFO(" %02x ", padapter->securitypriv.dot11wBIPKey[param->u.crypt.idx].skey[no]);
 				DBG_871X("\n"); */
 				padapter->securitypriv.dot11wBIPKeyid = param->u.crypt.idx;
 				padapter->securitypriv.binstallBIPkey = _TRUE;
@@ -9355,7 +9355,7 @@ static int rtw_wx_set_priv(struct net_device *dev,
 
 			pmlmepriv->wps_probe_req_ie = rtw_malloc(cp_sz);
 			if ( pmlmepriv->wps_probe_req_ie == NULL) {
-				printk("%s()-%d: rtw_malloc() ERROR!\n", __FUNCTION__, __LINE__);
+				RTW_INFO("%s()-%d: rtw_malloc() ERROR!\n", __FUNCTION__, __LINE__);
 				ret =  -EINVAL;
 				goto FREE_EXT;
 			
@@ -10544,18 +10544,18 @@ static int rtw_mp_efuse_set(struct net_device *dev,
 		DBG_871X("pEfuseHal->fakeBTEfuseModifiedMap OFFSET\tVALUE(hex)\n");
 		for (i = 0; i < EFUSE_BT_MAX_MAP_LEN; i += 16)
 		{
-			printk("0x%02x\t", i);
+			RTW_INFO("0x%02x\t", i);
 			for (j=0; j<8; j++) {
-				printk("%02X ", pEfuseHal->fakeBTEfuseModifiedMap[i+j]);
+				RTW_INFO("%02X ", pEfuseHal->fakeBTEfuseModifiedMap[i+j]);
 			}
-			printk("\t");
+			RTW_INFO("\t");
 
 			for (; j<16; j++) {
-				printk("%02X ", pEfuseHal->fakeBTEfuseModifiedMap[i+j]);
+				RTW_INFO("%02X ", pEfuseHal->fakeBTEfuseModifiedMap[i+j]);
 			}
-			printk("\n");
+			RTW_INFO("\n");
 		}
-		printk("\n");
+		RTW_INFO("\n");
 #if 1		
 		err = -EFAULT;
 		DBG_871X("%s: rtw_BT_efuse_map_read _rtw_memcmp \n", __FUNCTION__);
@@ -10582,17 +10582,17 @@ static int rtw_mp_efuse_set(struct net_device *dev,
 
 					for (i = 0; i < EFUSE_BT_MAX_MAP_LEN; i += 16)
 					{
-						printk("0x%02x\t", i);
+						RTW_INFO("0x%02x\t", i);
 						for (j=0; j<8; j++) {
-							printk("%02X ", pEfuseHal->fakeBTEfuseInitMap[i+j]);
+							RTW_INFO("%02X ", pEfuseHal->fakeBTEfuseInitMap[i+j]);
 						}
-						printk("\t");
+						RTW_INFO("\t");
 						for (; j<16; j++) {
-							printk("%02X ", pEfuseHal->fakeBTEfuseInitMap[i+j]);
+							RTW_INFO("%02X ", pEfuseHal->fakeBTEfuseInitMap[i+j]);
 						}
-						printk("\n");
+						RTW_INFO("\n");
 					}
-					printk("\n"); 
+					RTW_INFO("\n"); 
 				}
 				DBG_871X("%s: BT write map afterf compare not match to write efuse try write Map again , BTStatus=0x%x\n", __FUNCTION__,BTStatus);	
 				goto exit;
@@ -12453,21 +12453,21 @@ static void printdata(u8 *pbuf, u32 len)
 
 
 	for (i = 0; (i+4) <= len; i+=4) {
-		printk("%08X", *(u32*)(pbuf + i));
-		if ((i+4) & 0x1F) printk(" ");
-		else printk("\n");
+		RTW_INFO("%08X", *(u32*)(pbuf + i));
+		if ((i+4) & 0x1F) RTW_INFO(" ");
+		else RTW_INFO("\n");
 	}
 
 	if (i < len)
 	{
 #ifdef CONFIG_BIG_ENDIAN
 		for (; i < len, i++)
-			printk("%02X", pbuf+i);
+			RTW_INFO("%02X", pbuf+i);
 #else // CONFIG_LITTLE_ENDIAN
 #if 0
 		val = 0;
 		_rtw_memcpy(&val, pbuf + i, len - i);
-		printk("%8X", val);
+		RTW_INFO("%8X", val);
 #else
 		u8 str[9];
 		u8 n;
@@ -12476,11 +12476,11 @@ static void printdata(u8 *pbuf, u32 len)
 		_rtw_memcpy(&val, pbuf+i, n);
 		sprintf(str, "%08X", val);
 		n = (4 - n) * 2;
-		printk("%8s", str+n);
+		RTW_INFO("%8s", str+n);
 #endif
 #endif // CONFIG_LITTLE_ENDIAN
 	}
-	printk("\n");
+	RTW_INFO("\n");
 }
 
 static u8 pktcmp(PADAPTER padapter, u8 *txbuf, u32 txsz, u8 *rxbuf, u32 rxsz)

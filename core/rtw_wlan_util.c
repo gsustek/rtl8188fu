@@ -4354,7 +4354,7 @@ void rtw_dev_pno_debug(struct net_device *net) {
 	DBG_871X("slow_scan_period: %d\n", pwrctl->pnlo_info->slow_scan_period);
 	DBG_871X("ssid_length: ");
 	for (i = 0 ; i < MAX_PNO_LIST_COUNT ; i++) {
-		printk("%d, ", pwrctl->pnlo_info->ssid_length[i]);
+		RTW_INFO("%d, ", pwrctl->pnlo_info->ssid_length[i]);
 	}
 	DBG_871X("\n");
 

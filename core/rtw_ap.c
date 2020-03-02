@@ -2569,7 +2569,7 @@ u8 rtw_ap_bmc_frames_hdl(_adapter *padapter)
 	}
 
 
-	printk("check if hiq empty=%d\n", empty);
+	RTW_INFO("check if hiq empty=%d\n", empty);
 */
 
 	return H2C_SUCCESS;

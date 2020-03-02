@@ -395,7 +395,7 @@ static void _rtw_reg_apply_flags(struct wiphy *wiphy)
 			else
 				ch->flags = 0;	//IEEE80211_CHAN_PASSIVE_SCAN;
 		}
-		//printk("%s: freq %d(%d) flag 0x%02X \n", __func__, freq, channel, ch->flags);
+		//RTW_INFO("%s: freq %d(%d) flag 0x%02X \n", __func__, freq, channel, ch->flags);
 	}
 #endif
 }

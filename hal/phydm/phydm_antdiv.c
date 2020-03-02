@@ -4495,15 +4495,15 @@ ODM_SetTxAntByTxInfo(
 	u4Byte		SupportICType = priv->pshare->_dmODM.SupportICType;
 
 	if (SupportICType == ODM_RTL8881A) {
-		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8881E******\n",__FUNCTION__,__LINE__);	*/
+		/*RTW_INFO("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8881E******\n",__FUNCTION__,__LINE__);	*/
 		pdesc->Dword6 &= set_desc(~(BIT(18)|BIT(17)|BIT(16)));	
 		pdesc->Dword6 |= set_desc(pDM_FatTable->antsel_a[aid]<<16);
 	} else if (SupportICType == ODM_RTL8192E) {
-		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8192E******\n",__FUNCTION__,__LINE__);	*/
+		/*RTW_INFO("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8192E******\n",__FUNCTION__,__LINE__);	*/
 		pdesc->Dword6 &= set_desc(~(BIT(18)|BIT(17)|BIT(16)));	
 		pdesc->Dword6 |= set_desc(pDM_FatTable->antsel_a[aid]<<16);
 	} else if (SupportICType == ODM_RTL8188E) {
-		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8188E******\n",__FUNCTION__,__LINE__);*/
+		/*RTW_INFO("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8188E******\n",__FUNCTION__,__LINE__);*/
 		pdesc->Dword2 &= set_desc(~BIT(24));
 		pdesc->Dword2 &= set_desc(~BIT(25));
 		pdesc->Dword7 &= set_desc(~BIT(29));
@@ -4515,7 +4515,7 @@ ODM_SetTxAntByTxInfo(
 		
 	} else if (SupportICType == ODM_RTL8812) {
 		/*[path-A]*/
-		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8881E******\n",__FUNCTION__,__LINE__);*/
+		/*RTW_INFO("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8881E******\n",__FUNCTION__,__LINE__);*/
 			
 		pdesc->Dword6 &= set_desc(~BIT(16));
 		pdesc->Dword6 &= set_desc(~BIT(17));
@@ -4567,11 +4567,11 @@ ODM_AntDiv_Config(
 				#if ( defined(CONFIG_5G_CGCS_RX_DIVERSITY) )
 					pDM_Odm->AntDivType = CGCS_RX_HW_ANTDIV; 
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ 5G] : AntDiv Type = CGCS_RX_HW_ANTDIV\n"));
-					panic_printk("[ 5G] : AntDiv Type = CGCS_RX_HW_ANTDIV\n");
+					RTW_INFO("[ 5G] : AntDiv Type = CGCS_RX_HW_ANTDIV\n");
 				#elif( defined(CONFIG_5G_CG_TRX_DIVERSITY)||defined(CONFIG_2G5G_CG_TRX_DIVERSITY_8881A))
 					pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ 5G] : AntDiv Type = CG_TRX_HW_ANTDIV\n"));				
-					panic_printk("[ 5G] : AntDiv Type = CG_TRX_HW_ANTDIV\n");
+					RTW_INFO("[ 5G] : AntDiv Type = CG_TRX_HW_ANTDIV\n");
 				#elif( defined(CONFIG_5G_CG_SMART_ANT_DIVERSITY) )
 					pDM_Odm->AntDivType = CG_TRX_SMART_ANTDIV;
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ 5G] : AntDiv Type = CG_SMART_ANTDIV\n"));
@@ -4600,7 +4600,7 @@ ODM_AntDiv_Config(
 		//2 [ 5G_SUPPORT_ANTDIV ]
 	#elif(defined(CONFIG_5G_SUPPORT_ANTDIV))
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ Enable AntDiv function] : Only 5G Support Antenna Diversity\n"));
-		panic_printk("[ Enable AntDiv function] : Only 5G Support Antenna Diversity\n");
+		RTW_INFO("[ Enable AntDiv function] : Only 5G Support Antenna Diversity\n");
 		pDM_FatTable->AntDiv_2G_5G = (ODM_ANTDIV_5G);
 		if(*pDM_Odm->pBandType == ODM_BAND_5G )
 		{
@@ -4609,10 +4609,10 @@ ODM_AntDiv_Config(
 				#if ( defined(CONFIG_5G_CGCS_RX_DIVERSITY) )
 					pDM_Odm->AntDivType = CGCS_RX_HW_ANTDIV;
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ 5G] : AntDiv Type = CGCS_RX_HW_ANTDIV\n"));
-					panic_printk("[ 5G] : AntDiv Type = CGCS_RX_HW_ANTDIV\n");
+					RTW_INFO("[ 5G] : AntDiv Type = CGCS_RX_HW_ANTDIV\n");
 				#elif( defined(CONFIG_5G_CG_TRX_DIVERSITY) )
 					pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
-					panic_printk("[ 5G] : AntDiv Type = CG_TRX_HW_ANTDIV\n");
+					RTW_INFO("[ 5G] : AntDiv Type = CG_TRX_HW_ANTDIV\n");
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ 5G] : AntDiv Type = CG_TRX_HW_ANTDIV\n"));
 				#elif( defined(CONFIG_5G_CG_SMART_ANT_DIVERSITY) )
 					pDM_Odm->AntDivType = CG_TRX_SMART_ANTDIV;
